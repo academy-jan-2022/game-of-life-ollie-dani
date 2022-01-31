@@ -5,6 +5,6 @@ public class GameOfLife {
     }
 
     public boolean[][] nextGen() {
-        return new boolean[][]{{ false, false }, { false, false }};
+        return new boolean[0][];
     }
 }
