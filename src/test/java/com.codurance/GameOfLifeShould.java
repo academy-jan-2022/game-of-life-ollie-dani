@@ -58,4 +58,17 @@ class GameOfLifeShould {
 
         assertArrayEquals(expected, result);
     }
+
+    @Test
+    void multiple_cells_with_two_live_neighbour_survive() {
+        var initialState = new int[][]{{1,1,1,0,1,1,1}};
+
+        GameOfLife gameOfLife = new GameOfLife(initialState);
+
+        var expected = new int[][]{{0,1,0,0,0,1,0}};
+
+        int[][] result = gameOfLife.nextGen();
+
+        assertArrayEquals(expected, result);
+    }
 }
