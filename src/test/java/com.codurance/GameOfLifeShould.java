@@ -58,6 +58,22 @@ class GameOfLifeShould {
         Assertions.assertArrayEquals(expected, result);
     }
 
+    @Test
+    void bring_bottom_left_cell_to_life_when_neighbours_are_all_alive() {
+        var initialState = new boolean[][]{
+            {true, true},
+            {false, true}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife(initialState);
+        var expected = new boolean[][]{
+            {true, true},
+            {true, true}
+        };
+        var result = gameOfLife.nextGen();
+        Assertions.assertArrayEquals(expected, result);
+    }
+
 //    @Test
 //    void give_us_an_empty_board_when_one_cell_living_with_all_dead_neighbours() {
 //        var initialState = new boolean[][]{
