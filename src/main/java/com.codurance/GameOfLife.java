@@ -12,10 +12,12 @@ public class GameOfLife {
     public int[][] nextGen() {
         var nextBoard = Arrays.stream(board).map(int[]::clone).toArray(int[][]::new);
 
-        for(int row = 0; row < board[0].length; row++){
+        for (int row = 0; row < board[0].length; row++) {
 
-            if (row == 1 && board[0][row] == 1 && board[0][row - 1] == 1){
-                nextBoard[0][row] = 1;
+            var isEdge = row == 0 || row == board[0].length - 1;
+
+            if (!isEdge && board[0][row - 1] == 1 && board[0][row + 1] == 1) {
+                nextBoard[0][row] = board[0][row];
                 continue;
             }
 
