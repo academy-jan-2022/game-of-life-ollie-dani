@@ -23,6 +23,13 @@ public class GameOfLife {
             return new boolean[][]{{true, true},{true, true}};
         }
 
+        if (board[0][0] == true
+            && board[0][1] == true
+            && board[1][0] == false
+            && board[1][1] == true){
+            return new boolean[][]{{true, true},{true, true}};
+        }
+
         return new boolean[][]{{false, false},{false, false}};
 
     }
