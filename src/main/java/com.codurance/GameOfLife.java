@@ -1,10 +1,17 @@
 package com.codurance;
 
 public class GameOfLife {
-    public GameOfLife(boolean[][] initialState) {
+    private final int[][] board;
+
+    public GameOfLife(int[][] initialState) {
+        board = initialState;
     }
 
-    public boolean[][] nextGen() {
-        return new boolean[0][];
+    public int[][] nextGen() {
+        for(int row = 0; row < board[0].length; row++){
+            board[0][row] = 0;
+        }
+
+        return board;
     }
 }
