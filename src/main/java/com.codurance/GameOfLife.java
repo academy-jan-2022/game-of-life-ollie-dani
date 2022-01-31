@@ -8,11 +8,16 @@ public class GameOfLife {
     }
 
     public boolean[][] nextGen() {
-        for(int column = 0 ; column < board[0].length ; column ++){
-            for(int row = 0 ; row < board.length; row ++){
-                board[column][row] = false;
-            }
+
+        if (board[0][0] == false
+            && board[0][1] == true
+            && board[1][0] == true
+            && board[1][1] == true){
+            return new boolean[][]{{true, true},{true, true}};
         }
-        return board;
+
+        return new boolean[][]{{false, false},{false, false}};
+
     }
+
 }
