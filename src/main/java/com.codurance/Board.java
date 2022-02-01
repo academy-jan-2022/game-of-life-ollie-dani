@@ -41,6 +41,7 @@ public class Board {
     }
 
 
+
     private boolean isActualCell(Point cellPosition, Point point) {
         return cellPosition.equals(point);
     }

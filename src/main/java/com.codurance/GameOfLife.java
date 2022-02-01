@@ -15,7 +15,7 @@ public class GameOfLife {
             for (int xAxis = 0; xAxis < board.X_AXIS_LIMIT; xAxis++) {
                 Cell currentCell = board.grid[yAxis][xAxis];
 
-                if (board.getNeighbours(currentCell.point()) == 2) {
+                if (board.getNeighbours(currentCell.point()) >= 2) {
                     nextBoard[yAxis][xAxis] = currentCell.state();
                 }
                 if (board.getNeighbours(currentCell.point()) < 2) {
