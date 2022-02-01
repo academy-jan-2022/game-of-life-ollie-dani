@@ -16,22 +16,14 @@ public class GameOfLife {
                 Cell currentCell = board.grid[yAxis][xAxis];
 
                 int aliveNeighbours = board.getNeighbours(currentCell.point());
+                int aliveOrDead = 0;
 
-                if (aliveNeighbours == 2) {
-                    nextBoard[yAxis][xAxis] = currentCell.state();
-                }
+                nextBoard[yAxis][xAxis] = switch (aliveNeighbours){
+                    case 2 -> currentCell.state();
+                    case 3 -> 1;
+                    default -> 0;
+                };
 
-                if(aliveNeighbours == 3){
-                    nextBoard[yAxis][xAxis] = 1;
-                }
-
-                if (aliveNeighbours >= 4){
-                    nextBoard[yAxis][xAxis] = 0;
-                }
-
-                if (aliveNeighbours < 2) {
-                    nextBoard[yAxis][xAxis] = 0;
-                }
             }
         }
         return nextBoard;
