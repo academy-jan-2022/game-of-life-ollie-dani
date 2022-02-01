@@ -17,16 +17,34 @@ public class GameOfLife {
 
         for (int column = 0; column < COLUMN_LIMIT; column++) {
             for (int row = 0; row < ROW_LIMIT; row++) {
-                if (checkLeftNeighbour(row, column) + checkRightNeighbour(row, column) == 2) {
+                if (getNeighbours(column, row) == 2) {
                     nextBoard[column][row] = board[column][row];
                 }
-                if (checkLeftNeighbour(row, column) + checkRightNeighbour(row, column) < 2) {
+                if (getNeighbours(column, row) < 2) {
                     nextBoard[column][row] = 0;
                 }
-
             }
         }
         return nextBoard;
+    }
+
+    private int getNeighbours(int column, int row) {
+        return checkLeftNeighbour(row, column)
+            + checkRightNeighbour(row, column)
+            + checkTopNeighbour(row, column)
+            + checkLowerNeighbour(row, column);
+    }
+
+    private int checkLowerNeighbour(int row, int column) {
+        if (column + 1 < COLUMN_LIMIT)
+            return board[column + 1][row];
+        return 0;
+    }
+
+    private int checkTopNeighbour(int row, int column) {
+        if (column - 1 >= 0)
+            return board[column - 1][row];
+        return 0;
     }
 
     private int checkRightNeighbour(int row, int column) {

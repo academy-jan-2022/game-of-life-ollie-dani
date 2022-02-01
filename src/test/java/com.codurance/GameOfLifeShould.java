@@ -93,6 +93,29 @@ class GameOfLifeShould {
         assertArrayEquals(expected, result);
     }
 
+    @Test
+    void keep_cell_with_2_neighbours_vertically() {
+        var initialState = new int[][]{
+            {1},
+            {1},
+            {1},
+
+        };
+
+        GameOfLife gameOfLife = new GameOfLife(initialState);
+
+        var expected = new int[][]{
+            {0},
+            {1},
+            {0},
+
+        };
+
+        int[][] result = gameOfLife.nextGen();
+
+        assertArrayEquals(expected, result);
+    }
+
 
 
 }
