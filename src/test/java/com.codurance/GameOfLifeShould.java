@@ -160,5 +160,24 @@ class GameOfLifeShould {
     }
 
 
+    @Test
+    void keep_cell_with_3_neighbours() {
+        var initialState = new int[][]{
+            {1,1},
+            {1,1},
+        };
+
+        GameOfLife gameOfLife = new GameOfLife(initialState);
+
+        var expected =new int[][]{
+            {1,1},
+            {1,1},
+        };
+
+        int[][] result = gameOfLife.nextGen();
+
+        assertArrayEquals(expected, result);
+    }
+
 
 }

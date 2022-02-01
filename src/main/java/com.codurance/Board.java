@@ -7,81 +7,47 @@ public class Board {
     public Cell[][] grid;
 
 
-
-    public Board(int[][] initialState){
+    public Board(int[][] initialState) {
         X_AXIS_LIMIT = initialState[0].length;
         Y_AXIS_LIMIT = initialState.length;
         grid = new Cell[Y_AXIS_LIMIT][X_AXIS_LIMIT];
 
         for (int yAxis = 0; yAxis < initialState.length; yAxis++) {
             for (int xAxis = 0; xAxis < initialState[yAxis].length; xAxis++) {
-                var cell = new Cell(xAxis, yAxis, initialState[yAxis][xAxis]);
+                var cell = new Cell(new Point(xAxis, yAxis), initialState[yAxis][xAxis]);
                 grid[yAxis][xAxis] = cell;
             }
         }
     }
 
+    public int getNeighbours(Point cellPosition) {
+        var xStart = cellPosition.x() - 1;
+        var xEnd = cellPosition.x() + 1;
+        var yStart = cellPosition.y() - 1;
+        var yEnd = cellPosition.y() + 1;
+        var sum = 0;
 
-    public int getNeighbours(Cell cell) {
-        return checkLeftNeighbour(cell)
-            + checkRightNeighbour(cell)
-            + checkTopNeighbour(cell)
-            + checkLowerNeighbour(cell)
-            + checkTopLeftDiagonalNeighbour(cell)
-            + checkBottomRightDiagonalNeighbour(cell);
-    }
-
-
-    private int checkRightNeighbour(Cell cell) {
-        if (cell.xAxis() + 1 < X_AXIS_LIMIT) {
-            var neighbour = grid[cell.yAxis()][cell.xAxis() + 1];
-            return neighbour.state();
+        for (int yIndex = yStart; yIndex <= yEnd; yIndex++) {
+            for (int xIndex = xStart; xIndex <= xEnd; xIndex++) {
+                sum += isNeighbour(cellPosition, new Point(xIndex, yIndex)) ? grid[yIndex][xIndex].state() : 0;
+            }
         }
 
-        return 0;
+        return sum;
     }
 
-    private int checkLeftNeighbour(Cell cell) {
-        if (cell.xAxis() - 1 >= 0){
-            var neighbour = grid[cell.yAxis()][cell.xAxis() - 1];
-            return neighbour.state();
-        }
-
-        return 0;
-
+    private boolean isNeighbour(Point cellPosition, Point point) {
+        return !isOutOfRange(point) && !isActualCell(cellPosition, point);
     }
 
-    private int checkLowerNeighbour(Cell cell) {
-        if (cell.yAxis() + 1 < Y_AXIS_LIMIT){
-            var neighbour = grid[cell.yAxis() + 1][cell.xAxis()];
-            return neighbour.state();
-        }
-        return 0;
+
+    private boolean isActualCell(Point cellPosition, Point point) {
+        return cellPosition.equals(point);
     }
 
-    private int checkTopNeighbour(Cell cell) {
-        if (cell.yAxis() - 1 >= 0){
-            var neighbour = grid[cell.yAxis() - 1][cell.xAxis()];
-            return neighbour.state();
-        }
-        return 0;
+    private boolean isOutOfRange(Point point) {
+
+        return point.y() >= Y_AXIS_LIMIT || point.y() < 0 || point.x() >= X_AXIS_LIMIT || point.x() < 0;
     }
 
-    private int checkTopLeftDiagonalNeighbour(Cell cell){
-        if (cell.yAxis() -1 >= 0 && cell.xAxis() -1 >= 0){
-            var neighbour = grid[cell.yAxis() - 1][cell.xAxis() - 1];
-            return neighbour.state();
-        }
-
-        return 0;
-    }
-
-    private int checkBottomRightDiagonalNeighbour(Cell cell){
-        if (cell.yAxis() + 1 < Y_AXIS_LIMIT && cell.xAxis() +1 < X_AXIS_LIMIT){
-            var neighbour = grid[cell.yAxis() + 1][cell.xAxis() + 1];
-            return neighbour.state();
-        }
-
-        return 0;
-    }
 }
