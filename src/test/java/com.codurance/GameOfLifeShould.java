@@ -240,5 +240,28 @@ class GameOfLifeShould {
         assertArrayEquals(expected, result);
     }
 
+    @Test
+    void work_on_multiple_iterations() {
+        var initialState = new int[][]{
+            {1, 0, 1},
+            {1, 0, 1},
+            {1, 0, 1},
+        };
+
+        GameOfLife gameOfLife = new GameOfLife(initialState);
+
+        var expected = new int[][]{
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0},
+        };
+
+        gameOfLife.nextGen();
+
+        int[][] result = gameOfLife.nextGen();
+
+        assertArrayEquals(expected, result);
+    }
+
 
 }

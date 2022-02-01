@@ -20,6 +20,10 @@ public class Board {
         }
     }
 
+    public Cell getCell(Point point) {
+        return grid[point.y()][point.x()];
+    }
+
     public int getNeighbours(Point cellPosition) {
         var xStart = cellPosition.x() - 1;
         var xEnd = cellPosition.x() + 1;
