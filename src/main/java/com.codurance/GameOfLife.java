@@ -1,23 +1,19 @@
 package com.codurance;
 
 public class GameOfLife {
-    private final int[][] board;
-    private final int X_AXIS_LIMIT;
-    private final int Y_AXIS_LIMIT;
+    private final Board board;
 
     public GameOfLife(int[][] initialState) {
-        board = initialState;
-        X_AXIS_LIMIT = initialState[0].length;
-        Y_AXIS_LIMIT = initialState.length;
+        board = new Board(initialState);
 
     }
 
     public int[][] nextGen() {
-        var nextBoard = new int[Y_AXIS_LIMIT][X_AXIS_LIMIT];
+        var nextBoard = new int[board.Y_AXIS_LIMIT][board.X_AXIS_LIMIT];
 
-        for (int yAxis = 0; yAxis < Y_AXIS_LIMIT; yAxis++) {
-            for (int xAxis = 0; xAxis < X_AXIS_LIMIT; xAxis++) {
-                Cell currentCell = new Cell(xAxis, yAxis, board[yAxis][xAxis]);
+        for (int yAxis = 0; yAxis < board.Y_AXIS_LIMIT; yAxis++) {
+            for (int xAxis = 0; xAxis < board.X_AXIS_LIMIT; xAxis++) {
+                Cell currentCell = board.getCell(xAxis, yAxis);
 
                 if (getNeighbours(currentCell) == 2) {
                     nextBoard[yAxis][xAxis] = currentCell.state();
@@ -40,42 +36,54 @@ public class GameOfLife {
     }
 
     private int checkRightNeighbour(Cell cell) {
-        if (cell.xAxis() + 1 < X_AXIS_LIMIT)
-            return board[cell.yAxis()][cell.xAxis() + 1];
+        if (cell.xAxis() + 1 < board.X_AXIS_LIMIT) {
+            var neighbour =  board.getCell(cell.xAxis() + 1, cell.yAxis());
+            return neighbour.state();
+        }
+
         return 0;
     }
 
     private int checkLeftNeighbour(Cell cell) {
-
-            if (cell.xAxis() - 1 >= 0)
-                return board[cell.yAxis()][cell.xAxis() - 1];
+            if (cell.xAxis() - 1 >= 0){
+                var neighbour =  board.getCell(cell.xAxis() - 1, cell.yAxis());
+                return neighbour.state();
+            }
 
             return 0;
 
     }
 
     private int checkLowerNeighbour(Cell cell) {
-        if (cell.yAxis() + 1 < Y_AXIS_LIMIT)
-            return board[cell.yAxis() + 1][cell.xAxis()];
+        if (cell.yAxis() + 1 < board.Y_AXIS_LIMIT){
+            var neighbour =  board.getCell(cell.xAxis(), cell.yAxis() + 1);
+            return neighbour.state();
+        }
         return 0;
     }
 
     private int checkTopNeighbour(Cell cell) {
-        if (cell.yAxis() - 1 >= 0)
-            return board[cell.yAxis() - 1][cell.xAxis()];
+        if (cell.yAxis() - 1 >= 0){
+            var neighbour =  board.getCell(cell.xAxis(), cell.yAxis() - 1);
+            return neighbour.state();
+        }
         return 0;
     }
 
     private int checkTopLeftDiagonalNeighbour(Cell cell){
-        if (cell.yAxis() -1 >= 0 && cell.xAxis() -1 >= 0)
-            return board[cell.yAxis() -1][cell.xAxis() -1];
+        if (cell.yAxis() -1 >= 0 && cell.xAxis() -1 >= 0){
+            var neighbour =  board.getCell(cell.xAxis() -1, cell.yAxis() -1);
+            return neighbour.state();
+        }
 
         return 0;
     }
 
     private int checkBottomRightDiagonalNeighbour(Cell cell){
-        if (cell.yAxis() + 1 < Y_AXIS_LIMIT && cell.xAxis() +1 < X_AXIS_LIMIT)
-            return board[cell.yAxis() +1][cell.xAxis() +1];
+        if (cell.yAxis() + 1 < board.Y_AXIS_LIMIT && cell.xAxis() +1 < board.X_AXIS_LIMIT){
+            var neighbour =  board.getCell(cell.xAxis() + 1, cell.yAxis() + 1);
+            return neighbour.state();
+        }
 
         return 0;
     }
