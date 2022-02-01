@@ -13,7 +13,7 @@ public class GameOfLife {
 
         for (int yAxis = 0; yAxis < board.Y_AXIS_LIMIT; yAxis++) {
             for (int xAxis = 0; xAxis < board.X_AXIS_LIMIT; xAxis++) {
-                Cell currentCell = board.getCell(xAxis, yAxis);
+                Cell currentCell = board.grid[yAxis][xAxis];
 
                 if (board.getNeighbours(currentCell) == 2) {
                     nextBoard[yAxis][xAxis] = currentCell.state();

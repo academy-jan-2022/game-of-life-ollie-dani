@@ -118,11 +118,32 @@ class GameOfLifeShould {
 
 
     @Test
-    void keep_cell_with_2_neighbours_Diagonally() {
+    void keep_cell_with_2_neighbours_on_tl_br_diagonal() {
         var initialState = new int[][]{
             {1,0,0},
             {0,1,0},
             {0,0,1},
+        };
+
+        GameOfLife gameOfLife = new GameOfLife(initialState);
+
+        var expected = new int[][]{
+            {0,0,0},
+            {0,1,0},
+            {0,0,0},
+        };
+
+        int[][] result = gameOfLife.nextGen();
+
+        assertArrayEquals(expected, result);
+    }
+
+    @Test
+    void keep_cell_with_2_neighbours_on_dl_tr_diagonal() {
+        var initialState = new int[][]{
+            {0,0,1},
+            {0,1,0},
+            {1,0,0},
         };
 
         GameOfLife gameOfLife = new GameOfLife(initialState);

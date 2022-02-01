@@ -5,7 +5,6 @@ public class Board {
     public final int X_AXIS_LIMIT;
     public final int Y_AXIS_LIMIT;
     public Cell[][] grid;
-    public Cell[][] nextBoard;
 
 
 
@@ -23,10 +22,6 @@ public class Board {
     }
 
 
-    public Cell getCell(int xAxis, int yAxis){
-        return grid[yAxis][xAxis];
-    }
-
     public int getNeighbours(Cell cell) {
         return checkLeftNeighbour(cell)
             + checkRightNeighbour(cell)
@@ -39,7 +34,7 @@ public class Board {
 
     private int checkRightNeighbour(Cell cell) {
         if (cell.xAxis() + 1 < X_AXIS_LIMIT) {
-            var neighbour =  getCell(cell.xAxis() + 1, cell.yAxis());
+            var neighbour = grid[cell.yAxis()][cell.xAxis() + 1];
             return neighbour.state();
         }
 
@@ -48,7 +43,7 @@ public class Board {
 
     private int checkLeftNeighbour(Cell cell) {
         if (cell.xAxis() - 1 >= 0){
-            var neighbour =  getCell(cell.xAxis() - 1, cell.yAxis());
+            var neighbour = grid[cell.yAxis()][cell.xAxis() - 1];
             return neighbour.state();
         }
 
@@ -58,7 +53,7 @@ public class Board {
 
     private int checkLowerNeighbour(Cell cell) {
         if (cell.yAxis() + 1 < Y_AXIS_LIMIT){
-            var neighbour =  getCell(cell.xAxis(), cell.yAxis() + 1);
+            var neighbour = grid[cell.yAxis() + 1][cell.xAxis()];
             return neighbour.state();
         }
         return 0;
@@ -66,7 +61,7 @@ public class Board {
 
     private int checkTopNeighbour(Cell cell) {
         if (cell.yAxis() - 1 >= 0){
-            var neighbour =  getCell(cell.xAxis(), cell.yAxis() - 1);
+            var neighbour = grid[cell.yAxis() - 1][cell.xAxis()];
             return neighbour.state();
         }
         return 0;
@@ -74,7 +69,7 @@ public class Board {
 
     private int checkTopLeftDiagonalNeighbour(Cell cell){
         if (cell.yAxis() -1 >= 0 && cell.xAxis() -1 >= 0){
-            var neighbour =  getCell(cell.xAxis() -1, cell.yAxis() -1);
+            var neighbour = grid[cell.yAxis() - 1][cell.xAxis() - 1];
             return neighbour.state();
         }
 
@@ -83,7 +78,7 @@ public class Board {
 
     private int checkBottomRightDiagonalNeighbour(Cell cell){
         if (cell.yAxis() + 1 < Y_AXIS_LIMIT && cell.xAxis() +1 < X_AXIS_LIMIT){
-            var neighbour =  getCell(cell.xAxis() + 1, cell.yAxis() + 1);
+            var neighbour = grid[cell.yAxis() + 1][cell.xAxis() + 1];
             return neighbour.state();
         }
 
