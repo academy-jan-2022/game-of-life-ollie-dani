@@ -3,7 +3,6 @@ package com.codurance;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameOfLifeShould {
 
@@ -22,11 +21,11 @@ class GameOfLifeShould {
 
     @Test
     void return_board_with_multiple_dead_cell_horizontally() {
-        var initialState = new int[][]{{0,0}};
+        var initialState = new int[][]{{0, 0}};
 
         GameOfLife gameOfLife = new GameOfLife(initialState);
 
-        var expected = new int[][]{{0,0}};
+        var expected = new int[][]{{0, 0}};
 
         int[][] result = gameOfLife.nextGen();
 
@@ -34,63 +33,66 @@ class GameOfLifeShould {
     }
 
     @Test
-    void kill_cell_with_no_alive_neighbour_horizontally() {
-        var initialState = new int[][]{{0,1,0}};
-
-        GameOfLife gameOfLife = new GameOfLife(initialState);
-
-        var expected = new int[][]{{0,0,0}};
-
-        int[][] result = gameOfLife.nextGen();
-
-        assertArrayEquals(expected, result);
-    }
-
-    @Test
-    void kill_cell_with_no_alive_neighbour_vertically() {
+    void kill_cell_with_no_neighbour() {
         var initialState = new int[][]{
-            {0},
-            {1},
-            {0},
+            {0, 0, 0},
+            {0, 1, 0},
+            {0, 0, 0}
         };
 
         GameOfLife gameOfLife = new GameOfLife(initialState);
 
         var expected = new int[][]{
-            {0},
-            {0},
-            {0}};
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
+        };
 
         int[][] result = gameOfLife.nextGen();
 
         assertArrayEquals(expected, result);
     }
 
+
     @Test
-    void cell_with_two_live_neighbour_horizontally_survive() {
-        var initialState = new int[][]{{1,1,1}};
+    void kill_cell_with_1_neighbour() {
+        var initialState = new int[][]{
+            {1, 0, 0},
+            {0, 1, 0},
+            {0, 0, 0}
+        };
 
         GameOfLife gameOfLife = new GameOfLife(initialState);
 
-        var expected = new int[][]{{0,1,0}};
+        var expected = new int[][]{
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
+        };
 
         int[][] result = gameOfLife.nextGen();
 
         assertArrayEquals(expected, result);
     }
 
+
     @Test
-    void multiple_cells_with_two_live_neighbour_horizontally_survive() {
-        var initialState = new int[][]{{1,1,1,0,1,1,1}};
+    void keep_cell_with_2_neighbours() {
+        var initialState = new int[][]{
+            {1, 1, 1, 1, 1, 1, 1}
+        };
 
         GameOfLife gameOfLife = new GameOfLife(initialState);
 
-        var expected = new int[][]{{0,1,0,0,0,1,0}};
+        var expected = new int[][]{
+            {0, 1, 1, 1, 1, 1, 0},
+        };
 
         int[][] result = gameOfLife.nextGen();
 
         assertArrayEquals(expected, result);
     }
+
 
 
 }
