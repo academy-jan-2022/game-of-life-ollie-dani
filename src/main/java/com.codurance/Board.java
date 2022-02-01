@@ -4,27 +4,20 @@ public class Board {
 
     public final int X_AXIS_LIMIT;
     public final int Y_AXIS_LIMIT;
-    public Cell[][] grid;
+    private final int[][] grid;
 
 
     public Board(int[][] initialState) {
         X_AXIS_LIMIT = initialState[0].length;
         Y_AXIS_LIMIT = initialState.length;
-        grid = new Cell[Y_AXIS_LIMIT][X_AXIS_LIMIT];
-
-        for (int yAxis = 0; yAxis < initialState.length; yAxis++) {
-            for (int xAxis = 0; xAxis < initialState[yAxis].length; xAxis++) {
-                var cell = new Cell(new Point(xAxis, yAxis), initialState[yAxis][xAxis]);
-                grid[yAxis][xAxis] = cell;
-            }
-        }
+        grid = initialState;
     }
 
-    public Cell getCell(Point point) {
+    public int getCell(Point point) {
         return grid[point.y()][point.x()];
     }
 
-    public int getNeighbours(Point cellPosition) {
+    public int calculateNearbyPopulation(Point cellPosition) {
         var xStart = cellPosition.x() - 1;
         var xEnd = cellPosition.x() + 1;
         var yStart = cellPosition.y() - 1;
@@ -33,7 +26,7 @@ public class Board {
 
         for (int yIndex = yStart; yIndex <= yEnd; yIndex++) {
             for (int xIndex = xStart; xIndex <= xEnd; xIndex++) {
-                sum += isNeighbour(cellPosition, new Point(xIndex, yIndex)) ? grid[yIndex][xIndex].state() : 0;
+                sum += isNeighbour(cellPosition, new Point(xIndex, yIndex)) ? grid[yIndex][xIndex]: 0;
             }
         }
 

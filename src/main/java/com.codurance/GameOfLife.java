@@ -10,7 +10,6 @@ public class GameOfLife {
 
     public GameOfLife(int[][] initialState) {
         board = new Board(initialState);
-
     }
 
     public int[][] nextGen() {
@@ -26,9 +25,8 @@ public class GameOfLife {
     }
 
     private int getCellNextState(Point point) {
-        Cell currentCell = board.getCell(point);
-        return switch (board.getNeighbours(currentCell.point())) {
-            case 2 -> currentCell.state();
+        return switch (board.calculateNearbyPopulation(point)) {
+            case 2 -> board.getCell(point);
             case 3 -> 1;
             default -> 0;
         };
