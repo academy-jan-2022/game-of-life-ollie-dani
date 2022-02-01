@@ -230,9 +230,9 @@ class GameOfLifeShould {
         GameOfLife gameOfLife = new GameOfLife(initialState);
 
         var expected = new int[][]{
-            {0, 0, 0},
-            {0, 0, 0},
-            {0, 0, 0},
+            {0, 1, 0},
+            {1, 0, 1},
+            {0, 1, 0},
         };
 
         int[][] result = gameOfLife.nextGen();

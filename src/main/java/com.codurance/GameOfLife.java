@@ -25,6 +25,10 @@ public class GameOfLife {
                     nextBoard[yAxis][xAxis] = 1;
                 }
 
+                if (aliveNeighbours >= 4){
+                    nextBoard[yAxis][xAxis] = 0;
+                }
+
                 if (aliveNeighbours < 2) {
                     nextBoard[yAxis][xAxis] = 0;
                 }
