@@ -28,7 +28,9 @@ public class Board {
             + checkTopNeighbour(cell)
             + checkLowerNeighbour(cell)
             + checkTopLeftDiagonalNeighbour(cell)
-            + checkBottomRightDiagonalNeighbour(cell);
+            + checkBottomRightDiagonalNeighbour(cell)
+            + checkBottomLeftDiagonalNeighbour(cell)
+            + checkTopRightDiagonalNeighbour(cell);
     }
 
 
@@ -79,6 +81,23 @@ public class Board {
     private int checkBottomRightDiagonalNeighbour(Cell cell){
         if (cell.yAxis() + 1 < Y_AXIS_LIMIT && cell.xAxis() +1 < X_AXIS_LIMIT){
             var neighbour = grid[cell.yAxis() + 1][cell.xAxis() + 1];
+            return neighbour.state();
+        }
+
+        return 0;
+    }
+
+    private int checkBottomLeftDiagonalNeighbour(Cell cell){
+        if (cell.yAxis() + 1 < Y_AXIS_LIMIT && cell.xAxis() - 1 >= 0){
+            var neighbour = grid[cell.yAxis() + 1][cell.xAxis() - 1];
+            return neighbour.state();
+        }
+
+        return 0;
+    }
+    private int checkTopRightDiagonalNeighbour(Cell cell){
+        if (cell.yAxis() - 1 >=  0 && cell.xAxis() + 1 < X_AXIS_LIMIT){
+            var neighbour = grid[cell.yAxis() - 1][cell.xAxis() + 1];
             return neighbour.state();
         }
 
