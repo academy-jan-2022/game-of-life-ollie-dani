@@ -17,10 +17,10 @@ public class GameOfLife {
 
         for (int yAxis = 0; yAxis < Y_AXIS_LIMIT; yAxis++) {
             for (int xAxis = 0; xAxis < X_AXIS_LIMIT; xAxis++) {
-                Cell currentCell = new Cell(xAxis, yAxis);
+                Cell currentCell = new Cell(xAxis, yAxis, board[yAxis][xAxis]);
 
                 if (getNeighbours(currentCell) == 2) {
-                    nextBoard[yAxis][xAxis] = board[yAxis][xAxis];
+                    nextBoard[yAxis][xAxis] = currentCell.state();
                 }
                 if (getNeighbours(currentCell) < 2) {
                     nextBoard[yAxis][xAxis] = 0;
@@ -46,12 +46,13 @@ public class GameOfLife {
     }
 
     private int checkLeftNeighbour(Cell cell) {
+
             if (cell.xAxis() - 1 >= 0)
                 return board[cell.yAxis()][cell.xAxis() - 1];
+
             return 0;
 
     }
-
 
     private int checkLowerNeighbour(Cell cell) {
         if (cell.yAxis() + 1 < Y_AXIS_LIMIT)

@@ -1,4 +1,7 @@
 package com.codurance;
 
-public record Cell(int xAxis, int yAxis) {
+public record Cell(int xAxis, int yAxis, int state) {
 }
+
+
+
