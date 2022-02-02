@@ -1,20 +1,57 @@
 package com.codurance;
 
+import java.util.function.Consumer;
+
 public class Board {
 
-    public final int X_AXIS_LIMIT;
-    public final int Y_AXIS_LIMIT;
+    public final int width;
+    public final int height;
     private final int[][] grid;
 
 
     public Board(int[][] initialState) {
-        X_AXIS_LIMIT = initialState[0].length;
-        Y_AXIS_LIMIT = initialState.length;
+        width = initialState[0].length;
+        height = initialState.length;
         grid = initialState;
+    }
+
+    public Board copy() {
+        return new Board(copyGrid());
+    }
+
+    private int[][] copyGrid() {
+        var newGrid = getScaffold();
+        for (int y = 0; y < height; y++) {
+            newGrid[y] = copyRow(y);
+        }
+        return newGrid;
+    }
+
+    private int[] copyRow(int y) {
+        int[] row = new int[0];
+        if (width >= 0)
+            System.arraycopy(grid[y], 0, row, 0, width);
+        return row;
     }
 
     public int getCell(Point point) {
         return grid[point.y()][point.x()];
+    }
+
+    public void revive(Point point) {
+        grid[point.y()][point.x()] = 1;
+    }
+
+    public void kill(Point point) {
+        grid[point.y()][point.x()] = 0;
+    }
+
+    public int[][] getScaffold() {
+        return new int[height][width];
+    }
+
+    public void process(Consumer<int[][]> f) {
+        f.accept(copyGrid());
     }
 
     public int calculateNearbyPopulation(Point cellPosition) {
@@ -45,7 +82,7 @@ public class Board {
 
     private boolean isOutOfRange(Point point) {
 
-        return point.y() >= Y_AXIS_LIMIT || point.y() < 0 || point.x() >= X_AXIS_LIMIT || point.x() < 0;
+        return point.y() >= height || point.y() < 0 || point.x() >= width || point.x() < 0;
     }
 
 }

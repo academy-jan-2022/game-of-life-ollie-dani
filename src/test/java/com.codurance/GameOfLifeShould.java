@@ -14,9 +14,9 @@ class GameOfLifeShould {
 
         var expected = new int[][]{{0}};
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
