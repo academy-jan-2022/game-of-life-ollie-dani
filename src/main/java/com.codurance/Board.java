@@ -28,14 +28,9 @@ public class Board {
     }
 
     private int[] copyRow(int y) {
-        int[] row = new int[0];
-        if (width >= 0)
-            System.arraycopy(grid[y], 0, row, 0, width);
+        int[] row = new int[width];
+        System.arraycopy(grid[y], 0, row, 0, width);
         return row;
-    }
-
-    public int getCell(Point point) {
-        return grid[point.y()][point.x()];
     }
 
     public void revive(Point point) {
@@ -55,18 +50,25 @@ public class Board {
     }
 
     public int calculateNearbyPopulation(Point cellPosition) {
-        var xStart = cellPosition.x() - 1;
-        var xEnd = cellPosition.x() + 1;
         var yStart = cellPosition.y() - 1;
         var yEnd = cellPosition.y() + 1;
         var sum = 0;
 
         for (int yIndex = yStart; yIndex <= yEnd; yIndex++) {
-            for (int xIndex = xStart; xIndex <= xEnd; xIndex++) {
-                sum += isNeighbour(cellPosition, new Point(xIndex, yIndex)) ? grid[yIndex][xIndex]: 0;
-            }
+            sum += getRowSum(cellPosition, yIndex);
         }
 
+        return sum;
+    }
+
+    private int getRowSum(Point cellPosition, int yIndex) {
+        var xStart = cellPosition.x() - 1;
+        var xEnd = cellPosition.x() + 1;
+        var sum = 0;
+
+        for (int xIndex = xStart; xIndex <= xEnd; xIndex++) {
+            sum += isNeighbour(cellPosition, new Point(xIndex, yIndex)) ? grid[yIndex][xIndex]: 0;
+        }
         return sum;
     }
 
@@ -75,14 +77,11 @@ public class Board {
     }
 
 
-
     private boolean isActualCell(Point cellPosition, Point point) {
         return cellPosition.equals(point);
     }
 
     private boolean isOutOfRange(Point point) {
-
         return point.y() >= height || point.y() < 0 || point.x() >= width || point.x() < 0;
     }
-
 }

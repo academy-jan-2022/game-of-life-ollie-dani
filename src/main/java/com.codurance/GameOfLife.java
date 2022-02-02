@@ -20,7 +20,6 @@ public class GameOfLife {
         for (var point : getAllPoints()) {
             getNextStateOperation(point, copy).accept(point);
         }
-
         return board = copy;
     }
 
@@ -41,35 +40,32 @@ public class GameOfLife {
     }
 
     private Consumer<Point> getNextStateOperation(Point point, Board copy) {
-        if (getCellNextState(point) == 1)
-            return copy::revive;
-        return copy::kill;
-    }
-
-    private int getCellNextState(Point point) {
         return switch (board.calculateNearbyPopulation(point)) {
-            case 2 -> board.getCell(point);
-            case 3 -> 1;
-            default -> 0;
+            case 2 -> p -> {};
+            case 3 -> copy::revive;
+            default -> copy::kill;
         };
+
     }
 
     public static void main(String[] args) throws InterruptedException {
         int[][] ints = new int[10][40];
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < ints.length; i++) {
             Arrays.fill(ints[i], random.nextInt() % 2 == 0 ? 1 : 0);
         }
         GameOfLife gameOfLife = new GameOfLife(ints);
 
         while (true) {
             sleep(1000);
-            System.out.print(Arrays.deepToString(gameOfLife.nextGen())
+            var result = gameOfLife.nextGen();
+            result.process(grid -> System.out.print(Arrays.deepToString(grid)
                 .replace("], ", "\n")
                 .replace("[", "")
                 .replace("[[", "")
                 .replace("]]", "")
-                .replace(", ", ""));
+                .replace(", ", "")));
+
 
 
             System.out.println("");

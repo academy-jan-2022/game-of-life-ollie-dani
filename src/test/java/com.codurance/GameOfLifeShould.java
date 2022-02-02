@@ -27,9 +27,9 @@ class GameOfLifeShould {
 
         var expected = new int[][]{{0, 0}};
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -48,9 +48,9 @@ class GameOfLifeShould {
             {0, 0, 0}
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
 
@@ -70,9 +70,9 @@ class GameOfLifeShould {
             {0, 0, 0}
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
 
@@ -88,9 +88,9 @@ class GameOfLifeShould {
             {0, 1, 1, 1, 1, 1, 0},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -111,9 +111,9 @@ class GameOfLifeShould {
 
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
 
@@ -133,9 +133,9 @@ class GameOfLifeShould {
             {0, 0, 0},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -154,9 +154,9 @@ class GameOfLifeShould {
             {0, 0, 0},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
 
@@ -174,9 +174,9 @@ class GameOfLifeShould {
             {1, 1},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -193,9 +193,9 @@ class GameOfLifeShould {
             {1, 1},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -214,9 +214,9 @@ class GameOfLifeShould {
             {0, 0, 0},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -235,9 +235,9 @@ class GameOfLifeShould {
             {0, 1, 0},
         };
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
     @Test
@@ -258,9 +258,9 @@ class GameOfLifeShould {
 
         gameOfLife.nextGen();
 
-        int[][] result = gameOfLife.nextGen();
+        var result = gameOfLife.nextGen();
 
-        assertArrayEquals(expected, result);
+        result.process(grid -> assertArrayEquals(expected, grid));
     }
 
 
